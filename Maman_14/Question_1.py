@@ -3,6 +3,7 @@ Created on May 7, 2018
 
 @author: Kosta
 '''
+#hi Kosta
 def startTheProg():
     arrayMin = list()
     arrayMax = list()
