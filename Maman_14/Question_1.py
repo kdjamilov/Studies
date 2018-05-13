@@ -20,7 +20,6 @@ def startTheProg():
 def buildMaxHeap(arrMax):
     array_len = len(arrMax)
     for i in range(array_len,-1,-1):
-        print i
         heapifyMax(arrMax,array_len,i)
     print "Max heap is: ",
     for i in range(array_len):
@@ -32,7 +31,7 @@ def buildMinHeap(arrMin):
     array_len = len(arrMin)
     for i in range(array_len,-1,-1):
         heapifyMin(arrMin,array_len,i)
-    print "Max heap is: ",
+    print "Min heap is: ",
     for i in range(array_len):
         print("%d " %arrMin[i]),
     print '\n'
