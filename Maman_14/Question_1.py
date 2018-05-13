@@ -3,6 +3,7 @@ Created on May 7, 2018
 
 @author: Kosta
 '''
+import sys
 #hi Kosta
 def startTheProg():
     arrayMin = list()
@@ -44,10 +45,9 @@ def insert(number,arrMax,arrMin):
     lenOfArrayMin = len(arrMin)
     if arrMax[lenOfArrayMax-1]>arrMax[((lenOfArrayMax-1)/2)]:
         arrMax = insertMax(arrMax,lenOfArrayMax-1)
-        return arrMax
     if arrMin[lenOfArrayMin-1]<arrMin[((lenOfArrayMax-1)/2)]:
         arrMin = insertMin(arrMin,lenOfArrayMin-1)
-        return arrMin
+    return arrMax, arrMin
         
 def insertMax(arr,index):
     if index == 0:
@@ -96,24 +96,59 @@ def heapifyMin(arr,n,i):
         arr[i],arr[smallest] = arr[smallest],arr[i]
         heapifyMin(arr,n,smallest)  
 
+def deletMax(arr):
+    if len(arr)<1:
+        print "\nHeap has not elements, exiting the program!"
+        sys.exit()
+    else:
+        max_num = arr[0]
+        arr[0] = arr[len(arr)-1]
+        del arr[len(arr)-1]
+        heapifyMax(arr,len(arr)-1,0)
+        return arr,max_num
+
+def deletMin(arr):
+    if len(arr)<1:
+        print "\nHeap has not elements, exiting the program!"
+        sys.exit()
+    else:
+        min_num = arr[0]
+        arr[0] = arr[len(arr)-1]
+        del arr[len(arr)-1]
+        heapifyMin(arr,len(arr)-1,0)
+        return arr,min_num
+        
 if __name__ == "__main__":
     arrayMin, arrayMax = startTheProg()
     while 1: 
-        user_option = raw_input("\nTo build a heap press 1\nTo insert a num press 2\nTo find Max press 3\n"+
+        user_option = raw_input("\n-------------------------\nTo build a heap press 1\nTo insert a num press 2\nTo find Max press 3\n"+
         "To find Min press 4\nTo delet Max press 5\nTo delet Min press 6\n")
         if user_option == str(1):
             arrayMax = buildMaxHeap(arrayMax)
             arrayMin = buildMinHeap(arrayMin)
         if user_option == str(2):
             user_option = raw_input("please insert a number\n\n")
-            arrayAfterInsert = insert(user_option,arrayMin, arrayMax)
-            print "New array after insert action is: "
-            for i in range(len(arrayAfterInsert)):
-                print("%d " %arrayAfterInsert[i]),
-            arrayMax = arrayAfterInsert
+            arrayMaxAfterInsert,arrayMinAfterInsert = insert(user_option,arrayMax, arrayMin)
+            print "New Max array after insert action is: "
+            for i in range(len(arrayMaxAfterInsert)):
+                print("%d " %arrayMaxAfterInsert[i]),
+            arrayMax = arrayMaxAfterInsert
+            print "\n"
+            print "New Min array after insert action is: "
+            for i in range(len(arrayMinAfterInsert)):
+                print("%d " %arrayMinAfterInsert[i]),
+            arrayMin = arrayMinAfterInsert
         if user_option == str(3):
             print find_max(arrayMax)
         if user_option == str(4):
             print find_min(arrayMin)
+        if user_option == str(5):
+            arrayMax, deletedMaxNum = deletMax(arrayMax)
+            print arrayMax
+            print 'The deleted maximum is: '+ str(deletedMaxNum)
+        if user_option == str(6):
+            arrayMin, deletedMinNum = deletMin(arrayMin)
+            print arrayMin
+            print 'The deleted minimum is: '+ str(deletedMinNum)
             
         
