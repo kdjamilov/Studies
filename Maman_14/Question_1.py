@@ -37,7 +37,6 @@ def buildMinHeap(arrMin):
         heapifyMin(arrMin,array_len,i)
     print "Min heap is: ",
     printArray(arrMin)
-    print '\n'
     return arrMin
 
 #Insert function. Gets the number to insert and the 2 arrays
@@ -160,11 +159,10 @@ if __name__ == "__main__":
             user_option = raw_input("please insert a number\n\n")
             arrayMaxAfterInsert,arrayMinAfterInsert = insert(user_option,arrayMax, arrayMin)
             print "New Max array after insert action is: "
-            print "\n"
             printArray(arrayMaxAfterInsert)
             arrayMax = arrayMaxAfterInsert
+            print '\n'
             print "New Min array after insert action is: "
-            print "\n"
             printArray(arrayMinAfterInsert)
             arrayMin = arrayMinAfterInsert
             
@@ -187,6 +185,6 @@ if __name__ == "__main__":
             print 'Max heap after delet Max' + str(arrayMax)
             print 'Min heap after delet Max' + str(arrayMin)
         if user_option == str(999):
-            print '999 was pressed, ending the program'
+            print '999 was pressed, ending the program!'
             sys.exit()
         
