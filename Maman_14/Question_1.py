@@ -86,8 +86,8 @@ def find_min(arr):
     
 def heapifyMax(arr,n,i):
     largest = i
-    l = 2*i
-    r = 2*i+1
+    l = 2*i+1
+    r = 2*i+2
     if l<n and arr[i]<arr[l]:
         largest=l
     if r<n and arr[largest]<arr[r]:
@@ -98,8 +98,8 @@ def heapifyMax(arr,n,i):
         
 def heapifyMin(arr,n,i):
     smallest = i
-    l = 2*i
-    r = 2*i+1
+    l = 2*i+1
+    r = 2*i+2
     if l<n and arr[i]>arr[l]:
         smallest=l
     if r<n and arr[smallest]>arr[r]:
