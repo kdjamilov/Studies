@@ -4,7 +4,8 @@ Created on May 7, 2018
 @author: Kosta Djamilov
 '''
 import sys
-
+global arrayMin
+global arrayMax
 def startTheProg():
     arrayMin = list()
     arrayMax = list()
@@ -24,9 +25,8 @@ def buildMaxHeap(arrMax):
     array_len = len(arrMax)
     for i in range(array_len,-1,-1):
         heapifyMax(arrMax,array_len,i)
-    print "Max heap is: ",
-    printArray(arrMax)
-    print '\n'
+    #print "Max heap is: ",
+    #printArray(arrMax)
     return arrMax
 
 #Min heap function. Receives the array minimum and return the minimum sorted heap. 
@@ -35,8 +35,7 @@ def buildMinHeap(arrMin):
     array_len = len(arrMin)
     for i in range(array_len,-1,-1):
         heapifyMin(arrMin,array_len,i)
-    print "Min heap is: ",
-    printArray(arrMin)
+    #print "Min heap is: ",
     return arrMin
 
 #Insert function. Gets the number to insert and the 2 arrays
@@ -95,7 +94,7 @@ def heapifyMax(arr,n,i):
     if largest != i:
         arr[i],arr[largest] = arr[largest],arr[i]
         heapifyMax(arr,n,largest)    
-        
+    
 def heapifyMin(arr,n,i):
     smallest = i
     l = 2*i+1
@@ -134,9 +133,46 @@ def printArray(arr):
     for i in range(len(arr)):
         print("%d " %arr[i]),
     
+def MinInMax(arr):
+    indexMin=0
+    n = len(arr)
+    index = n/2
+    if index == 0:
+        return arr[index]
+    minimum = arr[index+1] 
+    count = index+2 
+    for count in range(n):
+        if arr[count]<minimum:
+            minimum = arr[count]
+            indexMin = count  
+    print 'The minimum is: ' + str(minimum)
+    print 'The index of ' + str(minimum) + ' is at: ' +str(indexMin)
+    return indexMin 
 
-def reOrgTheArray(arr):
-    del arr[len(arr)-1]
+def MaxInMin(arr):
+    indexMax=0
+    n = len(arr)
+    index = n/2
+    if index == 0:
+        return arr[index]
+    maximum = arr[index+1] 
+    count = index+2 
+    for count in range(n):
+        if arr[count]>maximum:
+            maximum = arr[count]
+            indexMax = count  
+    print 'The maximum is: ' + str(maximum)
+    print 'The index of ' + str(maximum) + ' is at: ' +str(indexMax)
+    return indexMax   
+ 
+def reOrgMinHeap(arr,index):
+    del arr[index]
+    buildMinHeap(arr)
+    return arr
+
+def reOrgMaxHeap(arr,index):
+    del arr[index]
+    buildMaxHeap(arr)
     return arr
 
 if __name__ == "__main__":
@@ -155,6 +191,8 @@ if __name__ == "__main__":
         if user_option == str(1):
             arrayMax = buildMaxHeap(arrayMax)
             arrayMin = buildMinHeap(arrayMin)
+            print 'Max heap is: '+ str(arrayMax)
+            print 'Min heap is: '+ str(arrayMin)
         if user_option == str(2):
             user_option = raw_input("please insert a number\n\n")
             arrayMaxAfterInsert,arrayMinAfterInsert = insert(user_option,arrayMax, arrayMin)
@@ -175,15 +213,18 @@ if __name__ == "__main__":
         if user_option == str(5):
             arrayMax, deletedMaxNum = deletMax(arrayMax)
             print 'The deleted maximum is: '+ str(deletedMaxNum)
-            arrayMin = reOrgTheArray(arrayMin)
             print 'Max heap after delet Max' + str(arrayMax)
+            index = MaxInMin(arrayMin)
+            arrayMin = reOrgMinHeap(arrayMin, index)
             print 'Min heap after delet Max' + str(arrayMin)
         if user_option == str(6):
             arrayMin, deletedMinNum = deletMin(arrayMin)
             print 'The deleted minimum is: '+ str(deletedMinNum)
-            arrayMax = reOrgTheArray(arrayMax)
-            print 'Max heap after delet Max' + str(arrayMax)
-            print 'Min heap after delet Max' + str(arrayMin)
+            index = MinInMax(arrayMax)
+            arrayMax = reOrgMaxHeap(arrayMax, index)
+            print 'Max heap after delet Min' + str(arrayMax)
+            print 'Min heap after delet Min' + str(arrayMin)
+
         if user_option == str(999):
             print '999 was pressed, ending the program!'
             sys.exit()
