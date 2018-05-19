@@ -82,7 +82,8 @@ def find_max(arr):
 #Time complexity is o(1)  
 def find_min(arr):
     return arr[0]
-    
+#Heapify-maximum algorithm. Receives array, size and index and performs max heapify  
+#Time complexity is o(lgn)     
 def heapifyMax(arr,n,i):
     largest = i
     l = 2*i+1
@@ -94,7 +95,8 @@ def heapifyMax(arr,n,i):
     if largest != i:
         arr[i],arr[largest] = arr[largest],arr[i]
         heapifyMax(arr,n,largest)    
-    
+#Heapify-minimum algorithm. Receives array, size and index and performs min heapify  
+#Time complexity is o(lgn)  
 def heapifyMin(arr,n,i):
     smallest = i
     l = 2*i+1
@@ -106,7 +108,8 @@ def heapifyMin(arr,n,i):
     if smallest != i:
         arr[i],arr[smallest] = arr[smallest],arr[i]
         heapifyMin(arr,n,smallest)  
-
+#Deletes the maximum number from the array. Receives relevant array and returns the array + the deleted number
+#Time complexity is o(lgn)
 def deletMax(arr):
     if len(arr)<1:
         print "\nHeap has not elements, exiting the program!"
@@ -117,7 +120,8 @@ def deletMax(arr):
         del arr[len(arr)-1]
         heapifyMax(arr,len(arr)-1,0)
         return arr,max_num
-
+#Deletes the minimum number from the array. Receives relevant array and returns the array + the deleted number
+#Time complexity is o(lgn)
 def deletMin(arr):
     if len(arr)<1:
         print "\nHeap has not elements, exiting the program!"
@@ -128,11 +132,12 @@ def deletMin(arr):
         del arr[len(arr)-1]
         heapifyMin(arr,len(arr)-1,0)
         return arr,min_num
-    
+#Print the given array values    
 def printArray(arr):
     for i in range(len(arr)):
         print("%d " %arr[i]),
-    
+#Finds the minimum values index in max array in order to delete it after performing deletMin.
+#Time complexity is o(lgn) 
 def MinInMax(arr):
     indexMin=0
     n = len(arr)
@@ -148,7 +153,8 @@ def MinInMax(arr):
     print 'The minimum is: ' + str(minimum)
     print 'The index of ' + str(minimum) + ' is at: ' +str(indexMin)
     return indexMin 
-
+#Finds the maximum values index in min array in order to delete it after performing deletMax.
+#Time complexity is o(lgn) 
 def MaxInMin(arr):
     indexMax=0
     n = len(arr)
@@ -164,12 +170,16 @@ def MaxInMin(arr):
     print 'The maximum is: ' + str(maximum)
     print 'The index of ' + str(maximum) + ' is at: ' +str(indexMax)
     return indexMax   
- 
+#Deletes the relevant index(maximum value)from min array and re builds the min heap
+#Time complexity is o(1) - deletes the index
+#Time complexity is o(n) - build the heap
 def reOrgMinHeap(arr,index):
     del arr[index]
     buildMinHeap(arr)
     return arr
-
+#Deletes the relevant index(minimum value)from max array and re builds the max heap
+#Time complexity is o(1) - deletes the index
+#Time complexity is o(n) - build the heap
 def reOrgMaxHeap(arr,index):
     del arr[index]
     buildMaxHeap(arr)
